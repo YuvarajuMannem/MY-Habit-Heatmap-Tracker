@@ -48,13 +48,12 @@ function AppContent() {
       }
 
       try {
-        const response = await axios.get('/api/habits');
+        const response = await axios.get(`${API_URL}/api/habits`);
         setHabits(response.data);
         if (response.data.length > 0 && !selectedHabit) {
           setSelectedHabit(response.data[0]._id);
         }
         
-        // Check today's status for all habits
         const todayMap = {};
         response.data.forEach(habit => {
           const dataObj = mapToObject(habit.data);
@@ -86,7 +85,7 @@ function AppContent() {
   const addHabit = async (habitName) => {
     if (!habitName.trim()) return;
     try {
-      const response = await axios.post('/api/habits', { name: habitName });
+      const response = await axios.post(`${API_URL}/api/habits`, { name: habitName });
       const newHabit = response.data;
       setHabits([...habits, newHabit]);
       setSelectedHabit(newHabit._id);
@@ -105,7 +104,7 @@ function AppContent() {
   const deleteHabit = async (password) => {
     if (!habitToDelete) return;
     try {
-      await axios.delete(`/api/habits/${habitToDelete._id}`, { data: { password } });
+      await axios.delete(`${API_URL}/api/habits/${habitToDelete._id}`, { data: { password } });
       setHabits(habits.filter(h => h._id !== habitToDelete._id));
       if (selectedHabit === habitToDelete._id) {
         setSelectedHabit(habits.length > 1 ? habits[0]._id : null);
@@ -119,7 +118,7 @@ function AppContent() {
 
   const toggleToday = async (habitId) => {
     try {
-      const response = await axios.put(`/api/habits/${habitId}/toggle/${today}`);
+      const response = await axios.put(`${API_URL}/api/habits/${habitId}/toggle/${today}`);
       const updatedHabit = response.data;
       
       setHabits(habits.map(habit => 
@@ -129,7 +128,6 @@ function AppContent() {
       const newStatus = !todayStatus[habitId];
       setTodayStatus(prev => ({ ...prev, [habitId]: newStatus }));
       
-      // Show confetti when completing a task
       if (newStatus) {
         setShowConfetti(true);
         setTimeout(() => setShowConfetti(false), 2000);
@@ -141,7 +139,7 @@ function AppContent() {
 
   const toggleDay = async (habitId, date) => {
     try {
-      const response = await axios.put(`/api/habits/${habitId}/toggle/${date}`);
+      const response = await axios.put(`${API_URL}/api/habits/${habitId}/toggle/${date}`);
       const updatedHabit = response.data;
       
       setHabits(habits.map(habit => 
@@ -239,8 +237,8 @@ function AppContent() {
         <header className="header">
           <div className="header-left">
             <h1>
-              <span className="logo-icon">🌟</span>
-              MY habit tracker
+              <span className="logo-icon">✨</span>
+              MYhabitTracker
             </h1>
             {user && (
               <div className="user-profile">
