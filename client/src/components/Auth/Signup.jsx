@@ -56,14 +56,27 @@ function Signup() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2>Create Account</h2>
-        <p className="auth-subtitle">Start tracking your habits today</p>
+        <div className="auth-header">
+          <div className="auth-logo">
+            <span className="logo-icon">✨</span>
+            <h1>MYhabitTracker</h1>
+          </div>
+          <p className="auth-subtitle">Start your habit journey today</p>
+        </div>
         
-        {error && <div className="auth-error">{error}</div>}
+        {error && (
+          <div className="auth-error">
+            <span className="error-icon">⚠️</span>
+            {error}
+          </div>
+        )}
         
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="name">
+              <span className="label-icon">👤</span>
+              Full Name
+            </label>
             <input
               type="text"
               id="name"
@@ -72,11 +85,15 @@ function Signup() {
               onChange={handleChange}
               required
               placeholder="John Doe"
+              autoComplete="name"
             />
           </div>
           
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">
+              <span className="label-icon">📧</span>
+              Email
+            </label>
             <input
               type="email"
               id="email"
@@ -85,11 +102,15 @@ function Signup() {
               onChange={handleChange}
               required
               placeholder="your@email.com"
+              autoComplete="email"
             />
           </div>
           
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">
+              <span className="label-icon">🔒</span>
+              Password
+            </label>
             <input
               type="password"
               id="password"
@@ -98,11 +119,15 @@ function Signup() {
               onChange={handleChange}
               required
               placeholder="At least 6 characters"
+              autoComplete="new-password"
             />
           </div>
           
           <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label htmlFor="confirmPassword">
+              <span className="label-icon">✓</span>
+              Confirm Password
+            </label>
             <input
               type="password"
               id="confirmPassword"
@@ -111,17 +136,28 @@ function Signup() {
               onChange={handleChange}
               required
               placeholder="Confirm your password"
+              autoComplete="new-password"
             />
           </div>
           
           <button type="submit" className="auth-btn" disabled={loading}>
-            {loading ? 'Creating Account...' : 'Sign Up'}
+            {loading ? (
+              <>
+                <span className="loading-spinner-small"></span>
+                Creating Account...
+              </>
+            ) : (
+              'Create Account'
+            )}
           </button>
         </form>
         
-        <p className="auth-redirect">
-          Already have an account? <Link to="/login">Sign In</Link>
-        </p>
+        <div className="auth-footer">
+          <p className="auth-redirect">
+            Already have an account?{' '}
+            <Link to="/login">Sign In</Link>
+          </p>
+        </div>
       </div>
     </div>
   );

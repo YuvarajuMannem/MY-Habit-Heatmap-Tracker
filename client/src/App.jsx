@@ -28,7 +28,7 @@ function AppContent() {
   const [selectedHabit, setSelectedHabit] = useState(null);
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('darkMode');
-    return saved ? JSON.parse(saved) : false;
+    return saved ? JSON.parse(saved) : true;
   });
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [habitToDelete, setHabitToDelete] = useState(null);
@@ -71,16 +71,28 @@ function AppContent() {
     fetchHabits();
   }, [isAuthenticated, logout, selectedHabit, today]);
 
+
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-    if (darkMode) {
-      document.body.classList.add('dark-mode');
-      document.body.classList.remove('light-mode');
-    } else {
-      document.body.classList.add('light-mode');
-      document.body.classList.remove('dark-mode');
-    }
-  }, [darkMode]);
+  localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  if (darkMode) {
+    document.body.classList.add('dark-mode');
+    document.body.classList.remove('light-mode');
+    document.body.style.backgroundColor = '#141414'; // Set dark background
+  } else {
+    document.body.classList.add('light-mode');
+    document.body.classList.remove('dark-mode');
+    document.body.style.backgroundColor = '#f5f5f0'; // Set light background
+  }
+}, [darkMode]);
+
+// Set initial dark mode on app load
+useEffect(() => {
+  // Ensure dark mode is applied on first load
+  if (darkMode) {
+    document.body.classList.add('dark-mode');
+    document.body.style.backgroundColor = '#141414';
+  }
+}, []); // Run once on mount
 
   const addHabit = async (habitName) => {
     if (!habitName.trim()) return;
@@ -237,8 +249,8 @@ function AppContent() {
         <header className="header">
           <div className="header-left">
             <h1>
-              <span className="logo-icon">✨</span>
-              MYhabitTracker
+              <span className="logo-icon">🌟</span>
+              MY Habit Heatmat Tracker
             </h1>
             {user && (
               <div className="user-profile">

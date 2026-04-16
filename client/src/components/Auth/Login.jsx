@@ -39,14 +39,27 @@ function Login() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2>Welcome Back</h2>
-        <p className="auth-subtitle">Sign in to track your habits</p>
+        <div className="auth-header">
+          <div className="auth-logo">
+            <span className="logo-icon">✨</span>
+            <h1>MYhabitTracker</h1>
+          </div>
+          <p className="auth-subtitle">Welcome back! Track your journey.</p>
+        </div>
         
-        {error && <div className="auth-error">{error}</div>}
+        {error && (
+          <div className="auth-error">
+            <span className="error-icon">⚠️</span>
+            {error}
+          </div>
+        )}
         
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">
+              <span className="label-icon">📧</span>
+              Email
+            </label>
             <input
               type="email"
               id="email"
@@ -55,11 +68,15 @@ function Login() {
               onChange={handleChange}
               required
               placeholder="your@email.com"
+              autoComplete="email"
             />
           </div>
           
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">
+              <span className="label-icon">🔒</span>
+              Password
+            </label>
             <input
               type="password"
               id="password"
@@ -68,17 +85,28 @@ function Login() {
               onChange={handleChange}
               required
               placeholder="Enter your password"
+              autoComplete="current-password"
             />
           </div>
           
           <button type="submit" className="auth-btn" disabled={loading}>
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? (
+              <>
+                <span className="loading-spinner-small"></span>
+                Signing in...
+              </>
+            ) : (
+              'Sign In'
+            )}
           </button>
         </form>
         
-        <p className="auth-redirect">
-          Don't have an account? <Link to="/signup">Sign Up</Link>
-        </p>
+        <div className="auth-footer">
+          <p className="auth-redirect">
+            New to MYhabitTracker?{' '}
+            <Link to="/signup">Create an account</Link>
+          </p>
+        </div>
       </div>
     </div>
   );
