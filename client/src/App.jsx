@@ -6,6 +6,7 @@ import HabitForm from './components/HabitForm';
 import DeleteConfirmation from './components/DeleteConfirmation';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
+import Footer from './components/Footer';  
 import { AuthProvider, useAuth } from './context/AuthContext';
 import './App.css';
 
@@ -398,6 +399,9 @@ function AppContent() {
             }}
           />
         )}
+
+        {}
+        <Footer />
       </div>
     </div>
   );
