@@ -71,26 +71,18 @@ function AppContent() {
     fetchHabits();
   }, [isAuthenticated, logout, selectedHabit, today]);
 
-
-  // Dark mode state - default to true (dark mode)
-const [darkMode, setDarkMode] = useState(() => {
-  const saved = localStorage.getItem('darkMode');
-  return saved ? JSON.parse(saved) : true;  // true = dark mode default
-});
-
-// Single useEffect for dark mode
-useEffect(() => {
-  localStorage.setItem('darkMode', JSON.stringify(darkMode));
-  if (darkMode) {
-    document.body.classList.add('dark-mode');
-    document.body.classList.remove('light-mode');
-    document.body.style.backgroundColor = '#141414';
-  } else {
-    document.body.classList.add('light-mode');
-    document.body.classList.remove('dark-mode');
-    document.body.style.backgroundColor = '#f5f5f0';
-  }
-}, [darkMode]); // Only one useEffect with correct dependency
+  useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+      document.body.classList.remove('light-mode');
+      document.body.style.backgroundColor = '#141414';
+    } else {
+      document.body.classList.add('light-mode');
+      document.body.classList.remove('dark-mode');
+      document.body.style.backgroundColor = '#f5f5f0';
+    }
+  }, [darkMode]);
 
   const addHabit = async (habitName) => {
     if (!habitName.trim()) return;
@@ -247,8 +239,8 @@ useEffect(() => {
         <header className="header">
           <div className="header-left">
             <h1>
-              <span className="logo-icon">🌟</span>
-              MY Habit Heatmat Tracker
+              <span className="logo-icon">✨</span>
+              MYhabitTracker
             </h1>
             {user && (
               <div className="user-profile">
